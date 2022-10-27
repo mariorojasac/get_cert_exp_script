@@ -4,7 +4,13 @@ import datetime
 from datetime import date
 import json
 from trycourier import Courier
+import os
+from dotenv import load_dotenv
 
+
+#Getting .env variables -------------->
+load_dotenv()
+API_TOKEN = os.getenv('API_TOKEN')
 
 
 #Site URL checking  ------------------->
@@ -13,7 +19,7 @@ port = '443'
 
 
 
-#Getting SSL info ------------->
+#Getting SSL info -------------------->
 hostname = base_url
 context = ssl.create_default_context()
 experiation_date = ''
@@ -65,7 +71,7 @@ validate_experiration = check_expiration()
 
 #Notification Service -------------------->
 
-client = Courier(auth_token="pk_prod_TGG186DNG0MC8GG58Z5WQ6MVB0ZA") #or set via COURIER_AUTH_TOKEN env var
+client = Courier(auth_token=API_TOKEN) #or set via COURIER_AUTH_TOKEN env var
 
 resp = client.send_message(
   message={
