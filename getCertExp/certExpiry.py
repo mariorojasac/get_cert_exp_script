@@ -6,7 +6,22 @@ import json
 from trycourier import Courier
 import os
 from dotenv import load_dotenv
-
+import json
+  
+# Opening JSON file
+f = open('sslCertUrls.json')
+  
+# returns JSON object as 
+# a dictionary
+data = json.load(f)
+  
+# Iterating through the json
+# list
+for i in data['urls']:
+    base_url = i
+  
+# Closing file
+f.close()
 
 #Getting .env variables -------------->
 load_dotenv()
@@ -14,7 +29,7 @@ API_TOKEN = os.getenv('API_TOKEN')
 
 
 #Site URL checking  ------------------->
-base_url = 'fssabenefits.in.gov'
+#base_url = "fssabenefits.in.gov"
 port = '443'
 
 
@@ -69,26 +84,26 @@ def check_expiration():
 validate_experiration = check_expiration()
     
 
-#Notification Service -------------------->
+# #Notification Service -------------------->
 
-client = Courier(auth_token=API_TOKEN) #or set via COURIER_AUTH_TOKEN env var
+# client = Courier(auth_token=API_TOKEN) #or set via COURIER_AUTH_TOKEN env var
 
-resp = client.send_message(
-  message={
-    'to': {
-      'email': 'mario.rojas@moserit.com',
-      'data': {'name': 'DevOps Team'}
-    },
-    'content': {
-      'title': 'SSL Certificate Alert',
-      'body': 'Hey {{name}}, take a look at the upcomming SSL experiation dates: BP will expire on ' + experiation_date + 'Experation ' + validate_experiration,
-    },
-    'routing': {
-      'method': 'single',
-      'channels': ['email'],
-    }
-  }
-)
-print(resp['requestId'])
+# resp = client.send_message(
+#   message={
+#     'to': {
+#       'email': 'mario.rojas@moserit.com',
+#       'data': {'name': 'DevOps Team'}
+#     },
+#     'content': {
+#       'title': 'SSL Certificate Alert',
+#       'body': 'Hey {{name}}, take a look at the upcomming SSL experiation dates: BP will expire on ' + experiation_date + 'Experation ' + validate_experiration,
+#     },
+#     'routing': {
+#       'method': 'single',
+#       'channels': ['email'],
+#     }
+#   }
+# )
+# print(resp['requestId'])
 
 
