@@ -7,21 +7,24 @@ from trycourier import Courier
 import os
 from dotenv import load_dotenv
 import json
-  
+
+base_url = ''  
 # Opening JSON file
-f = open('sslCertUrls.json')
+file = open('sslCertUrls.json')
   
 # returns JSON object as 
 # a dictionary
-data = json.load(f)
+data = json.load(file)
   
 # Iterating through the json
 # list
 for i in data['urls']:
     base_url = i
-  
+
+print(base_url)
+
 # Closing file
-f.close()
+file.close()
 
 #Getting .env variables -------------->
 load_dotenv()
@@ -82,6 +85,7 @@ def check_expiration():
         return "Date not missed"
     
 validate_experiration = check_expiration()
+print(validate_experiration)
     
 
 # #Notification Service -------------------->
@@ -105,5 +109,3 @@ validate_experiration = check_expiration()
 #   }
 # )
 # print(resp['requestId'])
-
-
